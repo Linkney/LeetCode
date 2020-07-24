@@ -15,21 +15,30 @@
 # def searchRange(self, nums: List[int], target: int) -> List[int]:
 class Solution:
     def extreme_insertion_index(self, nums, target, left):
+        # 二分查找
         lo = 0
         hi = len(nums)
 
         while lo < hi:
+            # 除二取整
             mid = (lo + hi) // 2
+            # True：中值 大于 或者 等于 目标值   中值位置 为 hi  但 不返回 使之往左靠  直到到 最左边的目标值
+            # 才会触发 while 的退出机制    lo hi 相邻情况
+            # False：中值 大于 目标值  中值位置 为 hi
             if nums[mid] > target or (left and target == nums[mid]):
                 hi = mid
+            # True： 中值 小于 目标值 中值位置 + 1 为 lo
+            # False： 中值  小于 或 等于 目标值  中值位置 + 1 为 lo  但 不返回 使之往右靠  直到到 最右边的目标值
             else:
                 lo = mid + 1
         return lo
 
     def searchRange(self, nums, target):
+        # 返回最左边的target 的 index
         left_idx = self.extreme_insertion_index(nums, target, True)
 
         if left_idx == len(nums) or nums[left_idx] != target:
             return [-1, -1]
 
         return [left_idx, self.extreme_insertion_index(nums, target, False) - 1]
+
