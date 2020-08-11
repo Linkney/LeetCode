@@ -39,16 +39,15 @@ class Solution:
     def _jump(self, nums):
         n = len(nums)
         # 正向贪心
-        # 跳step次最远可以跳到end 而如果当前到了end还没到终点说明step次已经不够了 必须要多跳一次才能更远
-        # 那么多跳一次能到的最远是哪儿呢 根据计算就是maxPos。
-        # 也就是step + 1次最多可以跳到end = maxPos那么远。一直到下一次到end并且没到终点再更新......
+        # 跳step次最远可以跳到end
+        # maxPos 中计算变量缓存
         maxPos, end, step = 0, 0, 0
         for i in range(n - 1):
             # print('i:', i, '   maxPos:', maxPos, '  end:', end, '    step:', step)
 
             if maxPos >= i:
                 maxPos = max(maxPos, i + nums[i])
-
+                # 如果 i 遍历 到 end 了 那么就 得到 step 的最大距离 为 end  step++ 计算下一个 end
                 if i == end:
                     end = maxPos
                     step += 1

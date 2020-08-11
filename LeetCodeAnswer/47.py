@@ -13,13 +13,16 @@ from typing import List
 
 
 class Solution:
-
-    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-
+    # def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+    def permuteUnique(self, nums):
+        # dfs 框架
+        # [1, 1, 2] , 3 , 0 , [] , [False, False, False] , []
         def dfs(nums, size, depth, path, used, res):
+            # 深度 和 size 一样  （深度 即 ）
             if depth == size:
                 res.append(path.copy())
                 return
+
             for i in range(size):
                 if not used[i]:
 
@@ -33,14 +36,21 @@ class Solution:
                     path.pop()
 
         size = len(nums)
+        print('size:', size)
         if size == 0:
             return []
 
         nums.sort()
+        print('nums:', nums)
 
         used = [False] * len(nums)
+        print('used:', used)
+
         res = []
+        print('res:', res)
+
         dfs(nums, size, 0, [], used, res)
+
         return res
 
 
