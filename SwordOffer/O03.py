@@ -43,3 +43,7 @@ if __name__ == '__main__':
 # 一个萝卜一个坑的想法,
 # 因为题目里说明确说了要么不满足条件,要么是 range(0,n)的数组
 # 依次给每个萝卜放回自己的坑
+#   def findRepeatNumber(self, nums):
+#       for index in range(len(nums)):
+#           .... 下标位置的数字放下标大小的数 如果不是 那就交换 如果出现重复 return
+
