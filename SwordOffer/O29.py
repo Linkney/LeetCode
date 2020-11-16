@@ -64,15 +64,15 @@ class Solution:
         x = 0
         y = -1
         index = 0
-        turn = 0
+
         while line[index] > 0:
             for _ in range(line[index]):
                 x += order[index][0]
                 y += order[index][1]
                 ans.append(matrix[x][y])
-            index = (index + 1) % 4
-            turn += 1
-            if turn % 4 == 0 and turn > 0:
+            index = index + 1
+            if index == 4:
+                index = 0
                 line = [(i - 2) for i in line]
         return ans
 
