@@ -11,9 +11,15 @@ class TreeNode:
 
 
 def trueOrFalse():
-    # if (statement)
-    #      statement 为一个 bool 值
-    #             bool(a is b)
+    """
+    if (statement)
+     statement 为一个 bool 值
+            bool(a is b)
+
+    （1）if not A 判断的是A是否为空，也就是说里面有东西没
+    （2） if A is None则判断的是A是否声明并定义了 None is None
+
+    """
     if 1:
         print("if 1")
     if 0:
