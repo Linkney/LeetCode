@@ -13,12 +13,14 @@
 class Solution:
     # def permutation(self, s: str) -> List[str]:
     def permutation(self, s):
-        c, res = list(s), []
-        print("c:", c)
+        c = list(s)
+        # print("c:", c)
+        ans = []
 
         def dfs(x):
             if x == len(c) - 1:
-                res.append(''.join(c))  # 添加排列方案
+                # 添加排列方案
+                ans.append(''.join(c))
                 return
             dic = set()
             for i in range(x, len(c)):
@@ -34,7 +36,7 @@ class Solution:
                 c[i], c[x] = c[x], c[i]
 
         dfs(0)
-        return res
+        return ans
 
 
 if __name__ == '__main__':
