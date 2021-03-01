@@ -1,9 +1,9 @@
 # Again 2020年11月4日21:25:33  DFS
 #
 """
-请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。
-路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格，
-那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）。
+请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径
+路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。如果一条路径经过了矩阵的某一格
+那么该路径不能再次进入该格子。例如，在下面的3×4的矩阵中包含一条字符串“bfce”的路径（路径中的字母用加粗标出）
 
 [["a","b","c","e"],
 ["s","f","c","s"],
@@ -30,8 +30,8 @@ class Solution:
     # def exist(self, board: List[List[str]], word: str) -> bool:
     def exist(self, board, word):
         def dfs(i, j, k):
-            # i, j 迷宫中的位置坐标  k word中在Check的坐标
-            # 坐标越界 or word不对应
+            # i, j 迷宫中的位置坐标 k word 中在 Check 的坐标
+            # 坐标越界 or word 不对应
             if not 0 <= i < len(board) or not 0 <= j < len(board[0]) or board[i][j] != word[k]:
                 return False
             # 坐标合规 且 word 匹配
@@ -44,6 +44,7 @@ class Solution:
             board[i][j] = tmp
             return res
 
+        # 矩阵遍历
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if dfs(i, j, 0):

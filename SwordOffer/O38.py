@@ -1,10 +1,9 @@
 # Again 2020年11月23日15:22:17 全排列 dfs
 """
-输入一个字符串，打印出该字符串中字符的所有排列。
-你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+输入一个字符串，打印出该字符串中字符的所有排列
+你可以以任意顺序返回这个字符串数组，但里面不能有重复元素
 
 示例:
-
 输入：s = "abc"
 输出：["abc","acb","bac","bca","cab","cba"]
 """
@@ -12,12 +11,14 @@
 
 class Solution:
     # def permutation(self, s: str) -> List[str]:
+    # 看不懂 2020年12月17日15:35:03
     def permutation(self, s):
-        c = list(s)
-        # print("c:", c)
+        c = list(s)     # ['a', 'b', 'c']  分词放入 list
+        print("c:", c)
         ans = []
 
         def dfs(x):
+            # 最后一个玩意了
             if x == len(c) - 1:
                 # 添加排列方案
                 ans.append(''.join(c))
@@ -40,5 +41,5 @@ class Solution:
 
 
 if __name__ == '__main__':
-    s = "abc"
+    s = "abcc"
     print(Solution().permutation(s))

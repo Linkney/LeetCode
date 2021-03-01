@@ -22,7 +22,9 @@
 class Solution:
     # def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
     def findNumberIn2DArray(self, matrix, target):
+        # 左下角的坐标
         i, j = len(matrix) - 1, 0
+        # 行减 列增 上限 while 限制
         while i >= 0 and j < len(matrix[0]):
             if matrix[i][j] > target:
                 i -= 1
