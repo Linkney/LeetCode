@@ -39,6 +39,7 @@ class Solution:
                 return True
             # 已用迷宫格子 画×
             tmp, board[i][j] = board[i][j], '/'
+            # 上下左右
             res = dfs(i + 1, j, k + 1) or dfs(i - 1, j, k + 1) or dfs(i, j + 1, k + 1) or dfs(i, j - 1, k + 1)
             # 该dfs失败了 恢复迷宫原状
             board[i][j] = tmp

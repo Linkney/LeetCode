@@ -27,6 +27,18 @@ class Solution:
         ans = [i for i in range(1, maxNum+1)]
         return ans
 
+    # 我莫不是傻子 1 -> 9   2 -> 99  3 -> 999 数学函数映射
+    def _printNumbers(self, n):
+        if n < 1:
+            return None
+
+        maxNum = 10 ** n - 1
+
+        # print("maxNum:", maxNum)
+        ans = [i for i in range(1, maxNum+1)]
+        return ans
+
 
 if __name__ == '__main__':
     print(Solution().printNumbers(2))
+    print(Solution()._printNumbers(2))

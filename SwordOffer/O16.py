@@ -22,6 +22,7 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         ans = 1
+        # 数学特例
         if n == 0:
             return 1
         if x == 0:
@@ -32,7 +33,8 @@ class Solution:
             if n < 0:
                 x = 1/x
                 n = -n
-            # 快速幂 （数学）
+
+            # 快速幂 （数学）   & 1 在判断 指数 的奇偶性 >> 1 即 指数 除二取整
             while n != 0:
                 if (n & 1) == 1:
                     ans = ans * x

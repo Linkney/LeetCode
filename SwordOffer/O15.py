@@ -19,17 +19,21 @@
 
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        res = 0
+        ans = 0
+        # 只要 n 不为 0 即 二进制表示里还有 1 就得 与+右移 来增加答案
         while n:
             # print("n:", n)
-            # 和 1 与 ， 右移一位
-            res += n & 1
+            # 和 1 与     n (本质上在计算机里也是二进制表示)   &  0000000000001  =   0000000000001 or 0000000000000
+            # 右移一位    相当于 除以二 取整
+            ans += n & 1
+            # print("res:", ans)
             n >>= 1
-        return res
+            # n = n>>1   上式代码展开
+        return ans
 
 
 if __name__ == '__main__':
-    print(Solution().hammingWeight(9))
+    print(Solution().hammingWeight(11))
 
 # 二进制 n & (n−1)
 #         res = 0
