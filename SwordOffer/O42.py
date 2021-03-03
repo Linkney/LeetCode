@@ -1,5 +1,6 @@
 """
-输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
+输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。
+求所有子数组的和的最大值。
 要求时间复杂度为O(n)。
 
 示例1:
@@ -27,7 +28,8 @@ class Solution:
             return ans
 
         ans = nums[0]
-        # 个数循环
+
+        # 个数循环 numNum = 1 2 3 .. len
         for numNum in range(1, len(nums)+1):
             # 起始下标循环
             for i in range(len(nums)):
@@ -35,9 +37,9 @@ class Solution:
 
         return ans
 
-    # 设动态规划列表 dp ，dp[i] 代表以元素 nums[i] 为结尾的连续子数组最大和
-    # 若 dp[i-1] ≤ 0 ，说明 dp[i - 1] 对 dp[i] 产生负贡献
-    # 即 dp[i-1] + nums[i] 还不如 nums[i] 本身大
+    # 设动态规划列表 dp ，
+    # dp[i] 代表以元素 nums[i] 为结尾的连续子数组最大和
+    # 若 dp[i-1] ≤ 0 ，说明 dp[i - 1] 对 dp[i] 产生负贡献 即 dp[i-1] + nums[i] 还不如 nums[i] 本身大
     def maxSubArray(self, nums):
         for i in range(1, len(nums)):
             # 要么带上 要么舍弃 孑然一身

@@ -43,6 +43,7 @@ class Codec:
             node = queue.popleft()
             if node:
                 res.append(str(node.val))
+                # None 也会加入进去
                 queue.append(node.left)
                 queue.append(node.right)
             else:
@@ -57,12 +58,16 @@ class Codec:
         """
         if data == "[]":
             return
+
         vals = data[1:-1].split(',')
         i = 1       # index of data str
+        # 根节点
         root = TreeNode(int(vals[0]))
+
         queue = collections.deque()
         queue.append(root)
-        # 一个节点 对应 两个序列化的str位置
+
+        # 一个节点 对应 两个序列化的str位置   Queue里一个node 需要 str里两个 null 就不需要进 Queue
         while queue:
             node = queue.popleft()
             if vals[i] != "null":

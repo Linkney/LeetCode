@@ -23,6 +23,7 @@ class Solution:
         # print(ans)
         for x in range(1, len(ans)):
             for y in range(1, len(ans[0])):
+                # ↓ → 两个方向
                 ans[x][y] = max(ans[x-1][y], ans[x][y-1]) + grid[x-1][y-1]
 
         # print(ans)

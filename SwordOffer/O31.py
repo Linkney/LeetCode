@@ -24,8 +24,8 @@ push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
 #                   不能高度缺失降落
 #    山峰线的数学理论 推进受阻
 
-# 模拟栈 行为
 
+# 模拟栈 行为
 class Solution:
     # def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
     def validateStackSequences(self, pushed, popped):

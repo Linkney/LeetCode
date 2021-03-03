@@ -46,5 +46,6 @@ if __name__ == '__main__':
     b = '3' + '30'
     print(type(b))
     print(b)
+    if a < b:
+        print("true")
 
-# 因果 凉暗

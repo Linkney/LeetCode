@@ -28,7 +28,15 @@ class Solution:
             # f(i) = f(i-1)
             return self.translateNum(num // 10)
 
+    # 正向动态规划  f(i) = f(i-1) + f(i-2)
+    def translateNumDP(self, num):
+        # 实现起来有点遭重 需要数据类型的转换
+        ans = [-1 for _ in range(len(str(num)))]
+        print(ans)
+        # todo .....
+
 
 if __name__ == '__main__':
-    num = 648006092
+    num = 12258
     print(Solution().translateNum(num))
+    print(Solution().translateNumDP(num))

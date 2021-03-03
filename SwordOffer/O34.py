@@ -30,6 +30,7 @@ class TreeNode:
         self.right = None
 
 
+# 本质上是一个 二叉树的回溯代码结构   挂载上 符合条件的路径记录
 class Solution:
     # def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
     def pathSum(self, root, sum):
@@ -53,9 +54,36 @@ class Solution:
 
             recur(root.left, tar)
             recur(root.right, tar)
-            # 这个 回溯的 pop
+            # 这个 回溯的 pop  这个 pop 位置 值得体会 和 思考
             path.pop()
 
         recur(root, sum)
         return ans
 
+    # 二叉树先序遍历
+    def _recur(self, root):
+        if not root: return
+
+        print(root.val)
+        if not root.left and not root.right:
+            print("挂载叶节点检测器")
+
+        self._recur(root.left)
+        self._recur(root.right)
+        print("pop")
+        return
+
+
+if __name__ == '__main__':
+
+    tree = TreeNode(5)
+    tree.left = TreeNode(4)
+    tree.left.left = TreeNode(11)
+    tree.left.left.left = TreeNode(7)
+    tree.left.left.right = TreeNode(2)
+    tree.right = TreeNode(8)
+    tree.right.left = TreeNode(13)
+    tree.right.right = TreeNode(4)
+    tree.right.right.left = TreeNode(5)
+    tree.right.right.right = TreeNode(1)
+    Solution()._recur(tree)
