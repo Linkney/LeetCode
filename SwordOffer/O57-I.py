@@ -29,9 +29,9 @@ class Solution:
                     break
                 if nums[small] + nums[lager] == target:
                     return [nums[small], nums[lager]]
-
         return None
 
+    # 对撞双指针
     def twoSum2(self, nums, target):
         small, big = 0, len(nums) - 1
         while small < big:

@@ -41,8 +41,10 @@ class Solution:
             dfs(root.right)
 
             # print(root.val)   递减序列
+            # 特殊情况 k = 0
             if self.k == 0:
                 return
+
             self.k -= 1
             if self.k == 0:
                 self.res = root.val

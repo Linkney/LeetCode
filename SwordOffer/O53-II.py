@@ -15,12 +15,14 @@
 # 二分法可以优化
 class Solution:
     # def missingNumber(self, nums: List[int]) -> int:
+    # 一趟遍历寻找
     def missingNumber(self, nums):
         for i in range(len(nums)):
             if i != nums[i]:
                 return i
         return len(nums)
 
+    # 二分法寻找
     def _missingNumber(self, nums):
         i, j = 0, len(nums) - 1
         while i <= j:

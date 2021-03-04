@@ -39,20 +39,30 @@ class Solution:
 
     # 异或 位运算
     def singleNumbers2(self, nums):
-        ret = functools.reduce(lambda x, y: x ^ y, nums)
-
-        div = 1
-        while div & ret == 0:
-            div <<= 1
-        a, b = 0, 0
-        for n in nums:
-            if n & div:
-                a ^= n
+        x, y, n, m = 0, 0, 0, 1     # x y 两个答案  n 遍历异或   m 与运算工具
+        for num in nums:  # 1. 遍历异或   n 初始化为 0 不影响 异或运算
+            n ^= num
+        while n & m == 0:  # 2. 循环左移，计算 m    得到大致这个样子 m = 0000100
+            m <<= 1
+        for num in nums:  # 3. 遍历 nums 分组
+            # 通过 num & m 会将 x 和 y 分到 if else 的两个分支里  其余数分哪无所谓会异或掉自身
+            if num & m:
+                x ^= num  # 4. 当 num & m != 0
             else:
-                b ^= n
-        return [a, b]
+                y ^= num  # 4. 当 num & m == 0
+        return x, y  # 5. 返回出现一次的数字
+
+    # 朴素数组异或
+    def xo(self, nums):
+        ans = nums[0]
+        for i in range(1, len(nums)):
+            ans = ans ^ nums[i]
+        return ans
 
 
 if __name__ == '__main__':
     nums = [4, 1, 4, 6]
     print(Solution().singleNumbers2(nums))
+
+    nums = [1, 2, 2, 1, 4]
+    print(Solution().xo(nums))
