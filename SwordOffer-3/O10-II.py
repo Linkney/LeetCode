@@ -15,7 +15,7 @@
 """
 
 
-# 介不是一样 (n) = (n-1) + (n-2)
+# 斐波那契数列 dp(n) = dp(n-1) + dp(n-2)
 class Solution:
     def numWays(self, n: int) -> int:
         if n == 0:

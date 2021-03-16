@@ -40,11 +40,27 @@ class Solution:
     def buildTree(self, preorder, inorder):
         # 通过前序和后序建立 Tree
 
-        # 特例 只有 根时候
-        indexPreorder = -1
+        # 特例
+        if len(preorder) == 0:
+            return None
 
+        # 可写可不写
+        # if len(preorder) == 1:
+        #     return TreeNode(preorder[0])
 
-        return
+        ans = TreeNode(preorder[0])
+
+        # 前序 中序 切分
+        indexInorder = inorder.index(preorder[0])           # 中序 根index
+        preLeft = preorder[1:indexInorder + 1]
+        preRight = preorder[indexInorder + 1:]
+        inLeft = inorder[:indexInorder]
+        inRight = inorder[indexInorder+1:]
+
+        ans.left = self.buildTree(preLeft, inLeft)
+        ans.right = self.buildTree(preRight, inRight)
+
+        return ans
 
 
 if __name__ == '__main__':

@@ -35,6 +35,7 @@ class Solution:
             if not 0 <= i < len(board) or not 0 <= j < len(board[0]) or board[i][j] != word[k]:
                 return False
             # 坐标合规 且 word 匹配
+            print("     内部dfs： ", i, j, word[k])
             if k == len(word) - 1:
                 return True
             # 已用迷宫格子 画×

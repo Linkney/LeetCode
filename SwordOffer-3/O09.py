@@ -25,33 +25,22 @@
 # |__|    stackA    队尾    两个栈只能有一个存数据      规定 全在 stackB
 class CQueue:
     def __init__(self):
-        self.stackA = []
-        self.stackB = []
+        self.stackIn, self.stackOut = [], []        # 入队栈 & 出队栈
 
     def appendTail(self, value: int) -> None:
-        self.stackB.append(value)
+        self.stackIn.append(value)
         return
 
     def deleteHead(self) -> int:
-        if len(self.stackB) == 0:
-            return -1
+        # 持续出队功能
+        if self.stackOut:
+            return self.stackOut.pop()
+        # 出队栈为空
+        # 将入队栈元素倒入出队栈 再出队
+        while self.stackIn:
+            self.stackOut.append(self.stackIn.pop())
+        if self.stackOut:
+            return self.stackOut.pop()
+        # 两栈全空
+        return -1
 
-        # 将 stackB 全部倒入 stackA
-        while len(self.stackB) > 0:
-            item = self.stackB.pop()
-            self.stackA.append(item)
-
-        ans = self.stackA.pop()
-
-        # 将stackA 再全部倒回去
-        while len(self.stackA) > 0:
-            self.stackB.append(self.stackA.pop())
-
-        return ans
-
-# Your CQueue object will be instantiated and called as such:
-# obj = CQueue()
-# obj.appendTail(value)
-# param_2 = obj.deleteHead()
-
-# 有个可以优化的点  连续 出队

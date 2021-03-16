@@ -27,13 +27,20 @@ class Solution:
             ans[index] = ans[index-1] + ans[index-2]
         return ans[n] % 1000000007
 
+    def fib2(self, n: int) -> int:
+        if n <= 1:
+            return n
+        fn0 = 0
+        fn1 = 1
+        # 进一次小循环 fn1 为 fn2
+        for _ in range(n-1):
+            sum = fn0 + fn1
+            fn0 = fn1
+            fn1 = sum % 1000000007
+        return fn1
+
 
 if __name__ == '__main__':
-    n = 45
+    n = 5
     print(Solution().fib(n))
-
-#     def fib(self, n: int) -> int:
-#         a, b = 0, 1
-#         for _ in range(n):
-#             a, b = b, a + b       # 等号右边表达式先计算 然后 same time 赋值
-#         return a % 1000000007
+    print(Solution().fib2(n))

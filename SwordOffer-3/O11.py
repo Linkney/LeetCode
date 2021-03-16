@@ -12,9 +12,9 @@
 """
 
 
-# 逆序对
 class Solution:
     # def minArray(self, numbers: List[int]) -> int:
+    # 寻找逆序对
     def minArray(self, numbers):
         for index in range(len(numbers)-1):
             if numbers[index] > numbers[index+1]:
@@ -22,3 +22,25 @@ class Solution:
         # 0个元素被旋转
         return numbers[0]
 
+    # 二分法      大 min 小  升序
+    def minArray2(self, numbers):
+        left, right = 0, len(numbers) - 1
+        while left < right:
+            print(left, right)
+            # mid = (left + right) // 2
+            mid = left + (right - left) // 2
+            if numbers[mid] > numbers[right]:
+                left = mid + 1
+            elif numbers[mid] < numbers[right]:
+                right = mid
+            else:
+                return min(numbers[left:right])
+        return numbers[left]
+
+
+if __name__ == '__main__':
+    # numbers = [3, 4, 5, 1, 2]
+    numbers = [1, 3, 5, 6, 8]
+    print(Solution().minArray(numbers))
+    print(Solution().minArray2(numbers))
+    print(Solution().minArray3(numbers))

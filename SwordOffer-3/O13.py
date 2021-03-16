@@ -21,32 +21,21 @@ from queue import Queue
 # 数位和
 def digitsum(n):
     ans = 0
-    # n > 0, n 取余, n 除10
+    # n > 0, n 取余, n 除 10 取整
     while n:
         ans += n % 10
-        n //= 10
+        n = n // 10
     return ans
 
 
 # 矩阵广搜搜索 + 将 大于K的 看做障碍
 class Solution:
     def movingCount(self, m, n, k):
-        # 工具人队列  存可以走到的位置 （待 check）
-        q = Queue()
-        q.put((0, 0))
-        # 存可行位置集合
-        s = set()
-        while not q.empty():
-            # 队列不为空 取出坐标
-            x, y = q.get()
-            # 符合规则 且 不在 可行set中
-            if (x, y) not in s and 0 <= x < m and 0 <= y < n and digitsum(x) + digitsum(y) <= k:
-                s.add((x, y))
-                # 将两个 → ↓ 两个广搜方向 加入 待测试队列中
-                for nx, ny in [(x + 1, y), (x, y + 1)]:
-                    q.put((nx, ny))
-        # 待测试队列为空时 就得到答案了
-        return len(s)
+        # 从 [0, 0] 开始移动 这个非常的关键
+        # todo 2021年3月16日22:59:14
+
+
+        return -1
 
 
 if __name__ == '__main__':
