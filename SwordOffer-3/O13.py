@@ -32,14 +32,58 @@ def digitsum(n):
 class Solution:
     def movingCount(self, m, n, k):
         # 从 [0, 0] 开始移动 这个非常的关键
-        # todo 2021年3月16日22:59:14
+        queue = Queue()
+        queue.put((0, 0))
+        # ans = set()
+        ans = []
+        appearInQueue = set()
+        orderX = [1, 0]      # orderX = [-1, 1, 0, 0]
+        orderY = [0, 1]      # orderY = [0, 0, 1, -1]
+        while not queue.empty():
+            # 队列中的 x, y 保证必然在 矩阵范围内 且 0,0 可达
+            x, y = queue.get()
+            if (digitsum(x) + digitsum(y)) <= k:
+                # ans.add((x, y))
+                ans.append('duang')
+                for i in range(2):
+                    xTemp = x + orderX[i]
+                    yTemp = y + orderY[i]
+                    # 可能重复入队
+                    if 0 <= xTemp < m and 0 <= yTemp < n and (xTemp, yTemp) not in appearInQueue:
+                        queue.put((xTemp, yTemp))
+                        appearInQueue.add((xTemp, yTemp))
+                        # print(xTemp, yTemp)
+        return len(ans)
 
-
-        return -1
+    def movingCount2(self, m, n, k):
+        # 工具人队列  存可以走到的位置 （待 check）
+        q = Queue()
+        q.put((0, 0))
+        # 存可行位置集合
+        s = set()
+        while not q.empty():
+            # 队列不为空 取出坐标
+            x, y = q.get()
+            # 符合规则 且 不在 可行set中
+            if (x, y) not in s and 0 <= x < m and 0 <= y < n and digitsum(x) + digitsum(y) <= k:
+                s.add((x, y))
+                # 将两个 → ↓ 两个广搜方向 加入 待测试队列中
+                for nx, ny in [(x + 1, y), (x, y + 1)]:
+                    q.put((nx, ny))
+                    # print(nx, ny)
+        # 待测试队列为空时 就得到答案了
+        return len(s)
 
 
 if __name__ == '__main__':
-    m = 2
-    n = 3
-    k = 1
+    m = 36
+    n = 11
+    k = 15
     print(Solution().movingCount(m, n, k))
+    # print(Solution().movingCount2(m, n, k))
+
+    # q = Queue()
+    # q.put(1)
+    # print(q.empty())
+    # print(q.get())
+    # print(q.empty())

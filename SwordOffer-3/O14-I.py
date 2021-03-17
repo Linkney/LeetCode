@@ -32,8 +32,6 @@ class Solution:
         ans[1] = 1
         ans[2] = 2
         ans[3] = 3
-        # print(ans)
-
         for index in range(4, n+1):
             # print("index:", index)
             # print(ans)
