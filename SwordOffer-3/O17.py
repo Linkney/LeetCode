@@ -16,27 +16,30 @@ class Solution:
     def printNumbers(self, n):
         if n < 1:
             return None
-
-        maxNum = 0
-        power = 0
-        while n != 0:
-            n = n - 1
-            maxNum += 9 * 10 ** power
-            power += 1
-        # print("maxNum:", maxNum)
-        ans = [i for i in range(1, maxNum+1)]
-        return ans
-
-    # 我莫不是傻子 1 -> 9   2 -> 99  3 -> 999 数学函数映射
-    def _printNumbers(self, n):
-        if n < 1:
-            return None
-
         maxNum = 10 ** n - 1
-
         # print("maxNum:", maxNum)
         ans = [i for i in range(1, maxNum+1)]
         return ans
+
+    # 考虑大数打印问题
+    def printNumbers2(self, n):
+        def dfs(x):
+            if x == n:
+                s = ''.join(num[self.start:])
+                if s != '0': res.append(int(s))
+                if n - self.start == self.nine: self.start -= 1
+                return
+            for i in range(10):
+                if i == 9: self.nine += 1
+                num[x] = str(i)
+                dfs(x + 1)
+            self.nine -= 1
+
+        num, res = ['0'] * n, []
+        self.nine = 0
+        self.start = n - 1
+        dfs(0)
+        return res
 
 
 if __name__ == '__main__':

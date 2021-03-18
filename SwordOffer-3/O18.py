@@ -24,6 +24,7 @@ class ListNode:
 # ans --> .....   --> prev --> work --> ....
 class Solution:
     def deleteNode(self, head: ListNode, val: int) -> ListNode:
+        # 头节点要删除
         if head.val == val:
             return head.next
 

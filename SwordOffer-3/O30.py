@@ -23,23 +23,27 @@ class MinStack:
         """
         initialize your data structure here.
         """
-        self.A = []
-        self.B = []
+        self.data = []
+        self.mindata = []
 
     def push(self, x: int) -> None:
-        self.A.append(x)
-        if not self.B or self.B[-1] >= x:
-            self.B.append(x)
+        if len(self.mindata) == 0:
+            self.mindata.append(x)
+        self.data.append(x)
+        if self.mindata[-1] >= x:
+            self.mindata.append(x)
 
     def pop(self) -> None:
-        if self.A.pop() == self.B[-1]:
-            self.B.pop()
+        check = self.data.pop()
+        if check == self.min():
+            self.mindata.pop()
 
     def top(self) -> int:
-        return self.A[-1]
+        return self.data[-1]
 
     def min(self) -> int:
-        return self.B[-1]
+        return self.mindata[-1]
+
 
 
 # Your MinStack object will be instantiated and called as such:

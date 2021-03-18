@@ -28,6 +28,3 @@ class Solution:
             prev = mid
             mid = temp
         return prev
-
-
-

@@ -18,34 +18,23 @@ push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
 """
 
 
-# pop 出现一个数后  push 该数的前部 被 freeze
-#       只能 一路向前 或者 随时向后 + 一路向前
-#       山峰线特征：
-#                   不能高度缺失降落
-#    山峰线的数学理论 推进受阻
-
-
-# 模拟栈 行为
 class Solution:
     # def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+    # 模拟栈 行为
     def validateStackSequences(self, pushed, popped):
-        stack = []
-        # poped 的游标
-        i = 0
+        ans = []
+        j = 0       # poped index
         for num in pushed:
-            # num 入栈
-            stack.append(num)
-            # 循环判断与出栈  stack is not None 运行不通过  stack 运行通过
-            while stack and stack[-1] == popped[i]:
-                stack.pop()
-                i += 1
-        # stack     None   not None
-        # return    True   False
-        # 有出不掉的残留了 那就是 False 了
-        return not stack
-
-# None      0   False
-# not None  1   True
+            ans.append(num)
+            # print(ans)
+            if j >= len(popped):
+                break
+            while ans[-1] == popped[j]:
+                ans.pop()
+                j += 1
+                if len(ans) == 0:
+                    break
+        return len(ans) == 0
 
 
 if __name__ == '__main__':

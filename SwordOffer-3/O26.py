@@ -50,9 +50,10 @@ class Solution:
         if A is None or B is None:
             return False
 
+        ans0 = self.check(A, B)
         ans1 = self.isSubStructure(A.left, B)
         ans2 = self.isSubStructure(A.right, B)
-        return self.check(A, B) or ans1 or ans2
+        return ans0 or ans1 or ans2
 
 
 if __name__ == '__main__':
@@ -66,11 +67,3 @@ if __name__ == '__main__':
     # B.left = TreeNode(1)
 
     print(Solution().isSubStructure(A, B))
-
-#     def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
-#         def recur(A, B):
-#             if not B: return True
-#             if not A or A.val != B.val: return False
-#             return recur(A.left, B.left) and recur(A.right, B.right)
-#
-#         return bool(A and B) and (recur(A, B) or self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B))

@@ -37,4 +37,3 @@ class Solution:
             prev = work
             work = work.next
         return ans
-

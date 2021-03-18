@@ -15,6 +15,9 @@
 
 
 # Definition for a binary tree node.
+import collections
+
+
 class TreeNode:
     def __init__(self, x):
         self.val = x
@@ -31,30 +34,16 @@ class Solution:
         if not root:
             return []
 
-        # 输入节点队列 返回新节点队列 和产生的中间 ans
-        def next(queue):
-            ansQueue = []
-            ansLayer = []
-            while len(queue) > 0:
-                root = queue.pop(0)
-                # if root.left is not None:
-                if root.left:
-                    ansLayer.append(root.left.val)
-                    ansQueue.append(root.left)
-                # if root.right is not None:
-                if root.right:
-                    ansLayer.append(root.right.val)
-                    ansQueue.append(root.right)
-            return ansQueue, ansLayer
-
-        queue = [root]
-        ans = [root.val]
-        while True:
-            aq, al = next(queue)
-            ans += al
-            queue = aq
-            if len(queue) == 0:
-                break
+        ans = []
+        queue = collections.deque()
+        queue.append(root)
+        while queue:
+            node = queue.popleft()
+            ans.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
         return ans
 
 
@@ -68,19 +57,3 @@ if __name__ == '__main__':
     tree.right.right = TreeNode(7)
 
     print(Solution().levelOrder(tree))
-
-# 双端队列
-#   右边进节点 左边出节点
-#   while 队列不为空
-#       出点 写答案
-#       进存在的 左右子节点
-# def levelOrder(self, root: TreeNode) -> List[int]:
-#     if not root: return []
-#     res, queue = [], collections.deque()
-#     queue.append(root)
-#     while queue:
-#         node = queue.popleft()
-#         res.append(node.val)
-#         if node.left: queue.append(node.left)
-#         if node.right: queue.append(node.right)
-#     return res

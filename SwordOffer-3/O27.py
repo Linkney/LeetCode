@@ -41,17 +41,10 @@ class BasicTree:
 class Solution:
     # def mirrorTree(self, root: TreeNode) -> TreeNode:
     def mirrorTree(self, root):
-        # 函数功能：返回一个 镜像化（以root为根节点的二叉树） 的二叉树
-        #       如果 节点为空 （都没有左右子树了 就不用镜像化了）
-        #       root的right ， root的left = 镜像化 （root的left）  ，  镜像化 （root的right）
+        # root的right ， root的left = 镜像化 （root的left）  ，  镜像化 （root的right）
         if root is None:
             return None
-        # 等式右边被打包成元组 同时赋值 给左侧多个变量
         root.right, root.left = self.mirrorTree(root.left), self.mirrorTree(root.right)
-        # 等价于下面 3 行
-        # tmp = root.left       # 左子树先存
-        # root.left = self.mirrorTree(root.right)       # 新（镜像后）的树 的 左子树 是 右子树的镜像
-        # root.right = self.mirrorTree(tmp)             # ---
         return root
 
 #   1

@@ -57,7 +57,7 @@ class Solution:
 
         return ans
 
-    def clearSpiralOrder(self, matrix):
+    def SpiralOrder_clear(self, matrix):
         ans = []
         order = [[0, 1], [1, 0], [0, -1], [-1, 0]]
         line = [len(matrix[0]), len(matrix)-1, len(matrix[0])-1, len(matrix)-2]
@@ -76,7 +76,7 @@ class Solution:
                 line = [(i - 2) for i in line]
         return ans
 
-    def _spiralOrder(self, matrix):
+    def spiralOrder2(self, matrix):
         if not matrix:
             return []
         l, r, t, b, res = 0, len(matrix[0]) - 1, 0, len(matrix) - 1, []

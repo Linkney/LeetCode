@@ -17,9 +17,6 @@
 # 注意：如果输入的过程中某一步转移失败了，即不存在对应的「转移规则」，
 # 此时计算将提前中止。在这种情况下我们也判定该字符串「被拒绝」。
 
-from enum import Enum
-
-
 # 状态 及 其对应的转移规则
 # 输入一个字符 将 字符 转化成 转移规则
 # 初始状态
@@ -30,95 +27,39 @@ from enum import Enum
 # 判断是否在接收态中
 class Solution:
     def isNumber(self, s: str) -> bool:
-        State = Enum("State", [
-            "STATE_INITIAL",
-            "STATE_INT_SIGN",
-            "STATE_INTEGER",
-            "STATE_POINT",
-            "STATE_POINT_WITHOUT_INT",
-            "STATE_FRACTION",
-            "STATE_EXP",
-            "STATE_EXP_SIGN",
-            "STATE_EXP_NUMBER",
-            "STATE_END",
-        ])
-        Chartype = Enum("Chartype", [
-            "CHAR_NUMBER",
-            "CHAR_EXP",
-            "CHAR_POINT",
-            "CHAR_SIGN",
-            "CHAR_SPACE",
-            "CHAR_ILLEGAL",
-        ])
+        states = [
+            {' ': 0, 's': 1, 'd': 2, '.': 4},  # 0. start with 'blank'
+            {'d': 2, '.': 4},  # 1. 'sign' before 'e'
+            {'d': 2, '.': 3, 'e': 5, ' ': 8},  # 2. 'digit' before 'dot'
+            {'d': 3, 'e': 5, ' ': 8},  # 3. 'digit' after 'dot'
+            {'d': 3},  # 4. 'digit' after 'dot' (‘blank’ before 'dot')
+            {'s': 6, 'd': 7},  # 5. 'e'
+            {'d': 7},  # 6. 'sign' after 'e'
+            {'d': 7, ' ': 8},  # 7. 'digit' after 'e'
+            {' ': 8}  # 8. end with 'blank'
+        ]
 
-        def toChartype(ch: str) -> Chartype:
-            if ch.isdigit():
-                return Chartype.CHAR_NUMBER
-            elif ch.lower() == "e":
-                return Chartype.CHAR_EXP
-            elif ch == ".":
-                return Chartype.CHAR_POINT
-            elif ch == "+" or ch == "-":
-                return Chartype.CHAR_SIGN
-            elif ch == " ":
-                return Chartype.CHAR_SPACE
+        # 状态码
+        p = 0  # start with state 0
+
+        for c in s:
+            if '0' <= c <= '9':
+                t = 'd'  # digit
+            elif c in "+-":
+                t = 's'  # sign
+            elif c in "eE":
+                t = 'e'  # e or E
+            elif c in ". ":
+                t = c  # dot, blank
             else:
-                return Chartype.CHAR_ILLEGAL
+                t = '?'  # unknown
 
-        transfer = {
-            State.STATE_INITIAL: {
-                Chartype.CHAR_SPACE: State.STATE_INITIAL,
-                Chartype.CHAR_NUMBER: State.STATE_INTEGER,
-                Chartype.CHAR_POINT: State.STATE_POINT_WITHOUT_INT,
-                Chartype.CHAR_SIGN: State.STATE_INT_SIGN,
-            },
-            State.STATE_INT_SIGN: {
-                Chartype.CHAR_NUMBER: State.STATE_INTEGER,
-                Chartype.CHAR_POINT: State.STATE_POINT_WITHOUT_INT,
-            },
-            State.STATE_INTEGER: {
-                Chartype.CHAR_NUMBER: State.STATE_INTEGER,
-                Chartype.CHAR_EXP: State.STATE_EXP,
-                Chartype.CHAR_POINT: State.STATE_POINT,
-                Chartype.CHAR_SPACE: State.STATE_END,
-            },
-            State.STATE_POINT: {
-                Chartype.CHAR_NUMBER: State.STATE_FRACTION,
-                Chartype.CHAR_EXP: State.STATE_EXP,
-                Chartype.CHAR_SPACE: State.STATE_END,
-            },
-            State.STATE_POINT_WITHOUT_INT: {
-                Chartype.CHAR_NUMBER: State.STATE_FRACTION,
-            },
-            State.STATE_FRACTION: {
-                Chartype.CHAR_NUMBER: State.STATE_FRACTION,
-                Chartype.CHAR_EXP: State.STATE_EXP,
-                Chartype.CHAR_SPACE: State.STATE_END,
-            },
-            State.STATE_EXP: {
-                Chartype.CHAR_NUMBER: State.STATE_EXP_NUMBER,
-                Chartype.CHAR_SIGN: State.STATE_EXP_SIGN,
-            },
-            State.STATE_EXP_SIGN: {
-                Chartype.CHAR_NUMBER: State.STATE_EXP_NUMBER,
-            },
-            State.STATE_EXP_NUMBER: {
-                Chartype.CHAR_NUMBER: State.STATE_EXP_NUMBER,
-                Chartype.CHAR_SPACE: State.STATE_END,
-            },
-            State.STATE_END: {
-                Chartype.CHAR_SPACE: State.STATE_END,
-            },
-        }
-
-        st = State.STATE_INITIAL
-        for ch in s:
-            typ = toChartype(ch)
-            if typ not in transfer[st]:
+            if t not in states[p]:
                 return False
-            st = transfer[st][typ]
 
-        return st in [State.STATE_INTEGER, State.STATE_POINT, State.STATE_FRACTION, State.STATE_EXP_NUMBER, State.STATE_END]
+            p = states[p][t]
+        # 接收态
+        return p in (2, 3, 7, 8)
 
 
 if __name__ == '__main__':
