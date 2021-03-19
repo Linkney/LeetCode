@@ -16,23 +16,32 @@ class Solution:
         nums.sort()
         return nums[int(len(nums)/2)]
 
-    def _majorityElement(self, nums):
-        votes = 0
+    # 摩尔投票法
+    def majorityElement2(self, nums):
+        # 票数机
+        vote = 0
+        # 持票的人
+        voter = -1  # not important
         for num in nums:
-            # votes 到 0 的时候 可能相互抵消到 空了 也可能 是刚刚开始
-            if votes == 0:
-              x = num
-            if num == x:
-                votes += 1
+            # 更换持票人
+            if vote == 0:
+                voter = num
+                vote += 1
+                continue
+
+            if num == voter:
+                vote += 1
             else:
-                votes -= 1
-        return x
+                vote -= 1
+
+        return voter
 
 
 if __name__ == '__main__':
-    nums = [1, 2, 3, 2, 2, 2, 5, 4, 2]
-    print(Solution().majorityElement(nums))
-    print(Solution()._majorityElement(nums))
+    # nums = [1, 2, 3, 2, 2, 2, 5, 4, 2]
+    nums = [6, 5, 5]
+    # print(Solution().majorityElement(nums))
+    print(Solution().majorityElement2(nums))
 
 # 最佳解法：
 #       摩尔投票法

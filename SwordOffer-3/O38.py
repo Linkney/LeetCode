@@ -12,8 +12,6 @@
 
 class Solution:
     # def permutation(self, s: str) -> List[str]:
-    # 看不懂 2020年12月17日15:35:03
-    # 晚上头晕看不进去 2021年3月3日19:47:40
     def permutation(self, s):
         c = list(s)     # ['a', 'b', 'c']  分词放入 list
         print("c:", c)
@@ -43,11 +41,30 @@ class Solution:
         dfs(0)
         return ans
 
+    def permutation2(self, s):
+        self.res = []
+
+        def backtrack(s, path):
+            # 如果 s 为空 则 将 path 加入到结果中
+            if not s:
+                print("append : ", path)
+                self.res.append(path)
+
+            seen = set()
+
+            for i in range(len(s)):
+                if s[i] in seen:
+                    continue
+                seen.add(s[i])
+                print("Two paramer:", s[:i]+s[i+1:], path + s[i])
+                backtrack(s[:i]+s[i+1:], path + s[i])
+
+        backtrack(s, "")
+        return self.res
+
 
 if __name__ == '__main__':
     s = "abcc"
+    print(s[:2])
     print(Solution().permutation(s))
-
-    ans = ['1', '2']
-    ans.append(''.join(['a', 'b']))
-    print(ans)
+    print(Solution().permutation2(s))

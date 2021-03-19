@@ -17,18 +17,16 @@ import random
 class Solution:
     # def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
     def getLeastNumbers(self, arr, k):
-        # ? 这调用排序这不完事了
         arr.sort()
         # 还得去重
-        # arrNoSame = []
-        # for i in arr:
-        #     if i not in arrNoSame:
-        #         arrNoSame.append(i)
-
-        return arr[0:k]
+        arrNoSame = []
+        for i in arr:
+            if i not in arrNoSame:
+                arrNoSame.append(i)
+        return arrNoSame[0:k]
 
     # 堆 todo>
-    def _getLeastNumbers(self, arr, k):
+    def getLeastNumbers2(self, arr, k):
         if k == 0:
             return list()
 
