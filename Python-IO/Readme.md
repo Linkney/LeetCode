@@ -21,16 +21,12 @@
 - .join()
     - 用于将序列中的元素以指定的字符连接生成一个新的字符串
     - str.join(sequence)
+    - print(",".join(map(str, listOfInt)))
 - .sort()
     - 用于对原列表进行排序      原数据会变化
     - list.sort( key=None, reverse=False)
         - key -- 进行比较的元素，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序
         - reverse -- 排序规则，reverse = True 降序， reverse = False 升序（默认）
-
-
-
-
-
 
 
 > 常用框架  循环输入没有 if 判断语句提供 break 使用 try expect break
@@ -41,11 +37,43 @@ while True:
         print(a + b)
     except EOFError:
         break
-
+```
+```python
 try:
     while True:
         a, b = map(int, input().strip().split())
         print(a + b)
 except EOFError:
     pass
+```
+
+> 读取二维输入 
+```python
+n, m = map(int, input().strip().split())
+get = []
+for _ in range(n):
+    temp = list(map(int, input().split()))
+    get.append(temp)
+print(get)
+```
+
+
+- 使用 sys.stdin.readline()
+    - import sys
+
+> 常用框架 读取一行
+```python
+import sys
+line = list(map(int, sys.stdin.readline().strip().split()))
+```
+
+> 读取多行
+```python
+import sys
+get = []
+while True:
+    line = sys.stdin.readline().strip()
+    if line == '':
+        break
+    get.append(list(map(int, line.split())))
 ```
