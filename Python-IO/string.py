@@ -158,3 +158,10 @@ def toBack(s):
     return res
 
 print(toBack(s))
+
+print("~~~~~~~~~~~~~~~~~~~~~~~~~")
+get = list(input().strip().split())
+print(get)
+get.reverse()
+print(get)
+print(" ".join(get))
