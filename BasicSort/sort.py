@@ -4,6 +4,8 @@
 # 选择排序
 #   小数前置
 #   在未排序序列中找到最小元素，存放到排序序列的起始位置，
+
+
 def selection_sort(nums):
     n = len(nums)
     for i in range(n):
@@ -88,7 +90,7 @@ def merge(left, right):
     return res
 
 
-# 快速排序          < 网易二面 >
+# 快速排序
 #   哨兵左右分隔大小 递归
 def quick_sort(nums):
     n = len(nums)
@@ -115,6 +117,37 @@ def quick_sort(nums):
         return nums
 
     return quick(0, n - 1)
+
+
+import random
+# 随机快排
+class RandomQucikSort:
+    def randomized_partition(self, nums, l, r):
+        # 随机 pivot index      l .... r(pivot)
+        pivot = random.randint(l, r)
+        nums[pivot], nums[r] = nums[r], nums[pivot]
+        # i [j .... ] r(pivot)
+        i = l - 1
+        for j in range(l, r):
+            if nums[j] < nums[r]:
+                i += 1
+                nums[j], nums[i] = nums[i], nums[j]
+        # small ...  small(i)   big .... big(j) r(pivot)
+        i += 1
+        nums[i], nums[r] = nums[r], nums[i]
+        # small .... pivot(i) ... big
+        return i
+
+    def randomized_quicksort(self, nums, l, r):
+        if r - l <= 0:
+            return
+        mid = self.randomized_partition(nums, l, r)
+        self.randomized_quicksort(nums, l, mid - 1)
+        self.randomized_quicksort(nums, mid + 1, r)
+
+    def sortArray(self, nums):
+        self.randomized_quicksort(nums, 0, len(nums) - 1)
+        return nums
 
 
 # 堆排序  todo
@@ -244,3 +277,25 @@ def Radix_sort(nums):
             bucketList[j] = []
     return nums
 
+
+# Soltion -- 最小编辑距离
+s1 = input()
+s2 = input()
+n = len(s1) + 1
+m = len(s2) + 1
+# dp[i][j] ： 表示 s1 的前 i 个 和 s2 的前 j 个的最小编辑距离   dp 起点为 空 对 空
+dp = [[0] * m for i in range(n)]
+# init
+for i in range(n):
+    dp[i][0] = i
+for j in range(m):
+    dp[0][j] = j
+for i in range(1, n):
+    for j in range(1, m):
+        # index 错位一个 实际上 如果相等 就 传递 ↘ 不然则 min → ↓增加或删除操作 ↘ 更改操作+ 1
+        if s1[i - 1] == s2[j - 1]:
+            dp[i][j] = dp[i - 1][j - 1]
+        else:
+            dp[i][j] = min(dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j]) + 1
+
+print(dp[-1][-1])

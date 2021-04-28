@@ -159,9 +159,48 @@ def toBack(s):
 
 print(toBack(s))
 
-print("~~~~~~~~~~~~~~~~~~~~~~~~~")
-get = list(input().strip().split())
-print(get)
-get.reverse()
-print(get)
-print(" ".join(get))
+print("----------------------------------------------------")
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def levelOrder(self, root):
+        if root is None:
+            return []
+
+        queue = [root]
+        ans = []
+
+        while len(queue) > 0:
+            print(queue)
+            tempQueue = queue.copy()
+            print(tempQueue)
+            print(tempQueue[0])
+            queue.clear()  # 将当前 queue 全部刷新
+            print(queue)
+            print(tempQueue)
+            tempAns = []
+
+            while len(tempQueue) > 0:
+                print("while")
+                print(tempQueue)
+                temp = tempQueue.pop(0)
+                print(temp)
+                if temp.left:
+                    queue.append(temp.left)
+                if temp.right:
+                    queue.append(temp.right)
+
+                tempAns.append(temp.val)
+            ans.append(tempAns)
+
+        return ans
+
+
+if __name__ == '__main__':
+    ll = [1, 2, 3]
+
+    print(ll[::-1])
