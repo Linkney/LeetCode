@@ -1,6 +1,69 @@
 # 排序算法 Python实现
 
 
+# 归并排序 < !!!!!!!!!!!!!!! >
+#   特殊情况 序列长度 <= 1 return
+#   把长度为 n 的输入序列分成长度 n/2 的子序列 左右
+#   对两个子序列采用归并排序（递归）
+#   合并子序列
+def merge_sort(nums):
+    if len(nums) <= 1:
+        return nums
+    mid = len(nums) // 2
+    # 分
+    left = merge_sort(nums[:mid])
+    right = merge_sort(nums[mid:])
+    # 合并
+    return merge(left, right)
+
+
+# 合并两个升序nums 到一个中 升序nums 中
+def merge(left, right):
+    res = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            res.append(left[i])
+            i += 1
+        else:
+            res.append(right[j])
+            j += 1
+    # 其中可能有一个 剩下 += [...]   另一个为 += []
+    res += left[i:]
+    res += right[j:]
+    return res
+
+
+# 快速排序
+#   哨兵左右分隔大小 递归
+def quick_sort(nums):
+    n = len(nums)
+
+    def quick(left, right):
+        if left >= right:
+            return nums
+        # 哨兵
+        pivot = left
+        i = left
+        j = right
+        # 左右比较大小 如果符合 刚好不动  指针向前滑行   找到两个都不符合 交换
+        while i < j:
+            while i < j and nums[j] > nums[pivot]:
+                j -= 1
+            # <= pivot 在第一位保持不动
+            while i < j and nums[i] <= nums[pivot]:
+                i += 1
+            nums[i], nums[j] = nums[j], nums[i]
+        # i == j 与 pivot 进行交换 交换到 index = 0 位置 （因为while中j先滑动 j先向i逼近）
+        nums[pivot], nums[j] = nums[j], nums[pivot]
+        quick(left, j - 1)
+        quick(j + 1, right)
+        return nums
+
+    return quick(0, n - 1)
+
+
 # 选择排序
 #   小数前置
 #   在未排序序列中找到最小元素，存放到排序序列的起始位置，
@@ -55,68 +118,6 @@ def shell_sort(nums):
                 i -= gap
         gap //= 2
     return nums
-
-
-# 归并排序 <!>
-#   把长度为 n 的输入序列分成长度 n/2 的子序列
-#   对两个子序列采用归并排序
-#   合并所有子序列
-def merge_sort(nums):
-    if len(nums) <= 1:
-        return nums
-    mid = len(nums) // 2
-    # 分
-    left = merge_sort(nums[:mid])
-    right = merge_sort(nums[mid:])
-    # 合并
-    return merge(left, right)
-
-
-# 合并两个 升序nums到一个中
-def merge(left, right):
-    res = []
-    i = 0
-    j = 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            res.append(left[i])
-            i += 1
-        else:
-            res.append(right[j])
-            j += 1
-    # 其中可能有一个 剩下 += [...]   另一个为 += []
-    res += left[i:]
-    res += right[j:]
-    return res
-
-
-# 快速排序
-#   哨兵左右分隔大小 递归
-def quick_sort(nums):
-    n = len(nums)
-
-    def quick(left, right):
-        if left >= right:
-            return nums
-        # 哨兵
-        pivot = left
-        i = left
-        j = right
-        # 左右比较大小 如果符合 刚好不动  指针向前滑行   找到两个都不符合 交换
-        while i < j:
-            while i < j and nums[j] > nums[pivot]:
-                j -= 1
-            # <= pivot 在第一位保持不动
-            while i < j and nums[i] <= nums[pivot]:
-                i += 1
-            nums[i], nums[j] = nums[j], nums[i]
-        # i == j 与 pivot 进行交换 交换到 index = 0 位置 （因为while中j先滑动 j先向i逼近）
-        nums[pivot], nums[j] = nums[j], nums[pivot]
-        quick(left, j - 1)
-        quick(j + 1, right)
-        return nums
-
-    return quick(0, n - 1)
 
 
 import random
@@ -278,24 +279,3 @@ def Radix_sort(nums):
     return nums
 
 
-# Soltion -- 最小编辑距离
-s1 = input()
-s2 = input()
-n = len(s1) + 1
-m = len(s2) + 1
-# dp[i][j] ： 表示 s1 的前 i 个 和 s2 的前 j 个的最小编辑距离   dp 起点为 空 对 空
-dp = [[0] * m for i in range(n)]
-# init
-for i in range(n):
-    dp[i][0] = i
-for j in range(m):
-    dp[0][j] = j
-for i in range(1, n):
-    for j in range(1, m):
-        # index 错位一个 实际上 如果相等 就 传递 ↘ 不然则 min → ↓增加或删除操作 ↘ 更改操作+ 1
-        if s1[i - 1] == s2[j - 1]:
-            dp[i][j] = dp[i - 1][j - 1]
-        else:
-            dp[i][j] = min(dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j]) + 1
-
-print(dp[-1][-1])

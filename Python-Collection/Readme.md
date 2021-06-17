@@ -3,6 +3,15 @@
 - list
     - nums = list(set(nums))    去重
     - nums.sort()               排序
+    - nums.sort( key=None, reverse=False)
+        - nums.sort(key=lambda x: x\[第几个参数下标])
+        - list.sort可以指定参数key，key接收一个函数。key函数只有一个参数
+        - sort会对列表的每一个元素e调用key(e)，key(e)的返回值就是list.sort排序的依据
+        - 对tuple进行排序，先按照第一个元素升序，如果第一个元素相同，再按照第二个元素降序排列
+        - nums.sort(key=lambda x: (x\[0], -x\[1]))
+    - pop()     # default last -1
+    - append()
+    - .index()     查找参数值 返回 index 下标
 
 - set
     - s = set()
@@ -14,7 +23,7 @@
 
 - permutations 全排列
     - import itertools
-    - ans = list(itertools.permutations(listOfPer, len(listOfPer)))
+    - ans = list(itertools.permutations(listOfPer))
     
 - dict
     - del dict\['keyName']  # 删除键 'Name'
@@ -25,6 +34,7 @@
     - .get(key, default=None)   # 返回指定键的值，如果键不在字典中返回 default 设置的默认值
     - for key in sorted(dict) 
     - dict,keys()               # 返回一个迭代器，可以使用 list() 来转换为列表
+    - .values()
 
 - bisect
     - from bisect import bisect
@@ -102,6 +112,16 @@
 
 
 
+- sort 和 sorted
+    - sort 与 sorted 区别：
+        - sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作
+        - list 的 sort 方法返回的是对已经存在的列表进行操作
+        - 而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作
+
+
+
+
+
 
 
 
@@ -129,3 +149,4 @@
 - 层次遍历的index规律： 
     - 父节点index = （子节点 - 1） // 2       # 除二取余
     - 子节点index = 父节点 * 2 + 1 or 2
+
